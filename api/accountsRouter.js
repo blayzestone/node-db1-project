@@ -21,3 +21,23 @@ router.get("/:id", async (req, res) => {
     res.status(400).json(err);
   }
 });
+
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const count = await db.delete("*").from("accounts").where({ id });
+    res.status(200).json(count);
+  } catch (error) {
+    res.status(400).json(err);
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const count = await db("accounts").update(req.body).where({ id });
+    res.status(200).json(count);
+  } catch (error) {
+    res.status(400).json(err);
+  }
+});
