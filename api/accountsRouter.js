@@ -22,6 +22,15 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  try {
+    const [account] = await db("accounts").insert(req.body);
+    res.status(201).json(account);
+  } catch (error) {
+    res.status(400).json(err);
+  }
+});
+
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {
